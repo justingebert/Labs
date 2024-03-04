@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webserver-click
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: webserver-click
+  template:
+    metadata:
+      labels:
+        app: webserver-click
+    spec:
+      containers:
+        - name: webserver-click
+          image: justingebert/devops-testapp:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MONGO_URI
+              value: "mongodb://mongodb-0.mongodb.default.svc.cluster.local/testapp"
